@@ -2,7 +2,7 @@ import React from 'react';
 import logo from '../common/logo.svg';
 import './css/Home.css';
 
-const Projects =() => {
+const ProjectList =() => {
   return (
     <div className="App">
       <div className="rain-front"/>
@@ -25,4 +25,4 @@ const Projects =() => {
   );
 }
 
-export default Projects;
+export default ProjectList;
