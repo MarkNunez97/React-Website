@@ -3,62 +3,55 @@ import React, { useState } from 'react';
 import Button from '@mui/material/Button';
 import Typography from '@mui/material/Typography';
 import './css/Slideshow.css';
-import dog from '../common/dog.gif';
-import dog2 from '../common/dog2.gif';
-import dog3 from '../common/dog3.gif';
 import ChevronLeft from '@mui/icons-material/ChevronLeft';
 import ChevronRight from '@mui/icons-material/ChevronRight';
 import Box from '@mui/material/Box';
+import { Project } from '../definitions/Project';
 
-interface Project{
-    title: string,
-    description: string,
-    bullets: string[],
-    image: string
-}
 
 interface SSProps{
     project: Project
 }
+
 function SlideshowItem(props: SSProps) {
     return (
         <div className="ProjectMid"> 
-                <div className="ProjectImage">
-                    <Box
-                        sx={{
-                            width: "100%",
-                            height: "100%",
-                            maxWidth: 500,
-                            minWidth: 300
-                        }}
-                        component="img"
-                        alt="The house from the offer."
-                        src={props.project.image}
-                    />
-                </div> 
-                <div className="ProjectDescription">
-                    <div style={{textAlign: "center", paddingBottom: 20}}>
-                        <Typography variant="h5">
-                            {props.project.title}
-                        </Typography>
-                    </div>
-                    <div >
-                        <Typography variant="body2" sx={{display: "-webkit-box", textOverflow: "ellipsis", maxHeight: 100, overflow: "hidden", WebkitLineClamp: 4, WebkitBoxOrient: "vertical"}} >
-                            {props.project.description}
-                        </Typography>
-                    </div>
-                    <div style={{paddingTop: 20}}>
-                        <Typography variant="caption">
-                            {props.project.bullets.map((bullet) => 
-                                <li>{bullet}</li>
-                            )}
-                        </Typography>
-                    </div>
-                    <div style={{textAlign: "center", marginTop: 'auto'}}>
-                        <Button variant="text">Learn More</Button>
-                    </div>
-                </div> 
-            </div>
+            <div className="ProjectImage">
+                <Box
+                    sx={{
+                        width: "100%",
+                        height: "100%",
+                        maxWidth: 500,
+                        minWidth: 300
+                    }}
+                    component="img"
+                    alt="The house from the offer."
+                    src={props.project.image}
+                />
+            </div> 
+            <div className="ProjectDescription">
+                <div style={{textAlign: "center", paddingBottom: 20}}>
+                    <Typography variant="h5">
+                        {props.project.title}
+                    </Typography>
+                </div>
+                <div >
+                    <Typography variant="body2" sx={{display: "-webkit-box", textOverflow: "ellipsis", maxHeight: 100, overflow: "hidden", WebkitLineClamp: 4, WebkitBoxOrient: "vertical"}} >
+                        {props.project.description}
+                    </Typography>
+                </div>
+                <div style={{paddingTop: 20}}>
+                    <Typography variant="caption">
+                        {props.project.bullets.map((bullet) => 
+                            <li>{bullet}</li>
+                        )}
+                    </Typography>
+                </div>
+                <div style={{textAlign: "center", marginTop: 'auto'}}>
+                    <Button variant="text">Learn More</Button>
+                </div>
+            </div> 
+        </div>
     )
 }
 
@@ -86,16 +79,15 @@ function SlideshowButton(props: ButtonProps) {
     }
 }
 
+interface SlideshowProps {
+    projectList: Project[]
+}
 
-const Slideshow = () => {
-    const projects: Project[] = [
-                                    {title: "Project A", description: "Description of Project A", bullets: ["worked on this", "worked on that"], image: dog}, 
-                                    {title: "Project B", description: "Description of Project B", bullets: ["worked on this", "worked on that"], image: dog2}, 
-                                    {title: "Project C", description: "Description of Project C", bullets: ["worked on this", "worked on that"], image: dog3}, 
-                                ]
-
+const Slideshow = (props: SlideshowProps) => {
+    
     const [currentProject, setCurrentProject] = useState(0);
-    const totalProjects = projects.length;
+    const totalProjects = props.projectList.length
+    
     function onLeftClick(){
         const temp = currentProject - 1;
 
@@ -116,7 +108,7 @@ const Slideshow = () => {
     <>
         <div className="ShowcaseContainer">
             <SlideshowButton orientation={"left"} onClick={onLeftClick}/>
-            <SlideshowItem project={projects[currentProject]}/>
+            <SlideshowItem project={props.projectList[currentProject]}/>
             <SlideshowButton orientation={"right"} onClick={onRightClick}/>   
         </div>
     </>
